@@ -4,6 +4,7 @@ const activitiesMap = {
   passportControl: "https://passport-control.int.tools.bbc.co.uk/graphql",
   imageUpload: "https://image-upload-activity.int.tools.bbc.co.uk/",
   av: "https://av-activity.int.tools.bbc.co.uk",
+  hd: "http://localhost:3030",
 };
 
 const getActivityRoute = (req) => {
