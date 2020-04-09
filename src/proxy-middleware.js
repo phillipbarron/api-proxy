@@ -4,7 +4,7 @@ const activitiesMap = {
   passportControl: "https://passport-control.int.tools.bbc.co.uk/graphql",
   imageUpload: "https://image-upload-activity.int.tools.bbc.co.uk/",
   av: "https://av-activity.int.tools.bbc.co.uk",
-  hd: "http://localhost:3030",
+  hd: "https://castawat.int.tools.bbc.co.uk/status",
 };
 
 const getActivityRoute = (req) => {
@@ -13,7 +13,13 @@ const getActivityRoute = (req) => {
 };
 
 const proxyOptions = {
-  target: "http://example.com",
+  target: {
+    protocol: 'https',
+    host: 'example.org',
+    port: 443,
+    pfx: fs.readFileSync(process.env.DEV_CERT_P12),
+    passphrase: process.env.DEV_CERT_PASSPHRASE,
+  } ,
   changeOrigin: true,
   pathRewrite: {
     "^/_activities/[a-zA-Z]+/": "/",
@@ -21,7 +27,7 @@ const proxyOptions = {
   router: getActivityRoute,
 };
 
-function getProxyMiddleware() {
+function getProxyMiddleware(ssl = {}) {
   return proxy(proxyOptions);
 }
 module.exports = {
