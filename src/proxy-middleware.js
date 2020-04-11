@@ -35,6 +35,7 @@ const proxyOptions = {
     "^/_activities/[a-zA-Z]+/": "/",
   },
   router: getActivityRoute,
+  onProxyReq: (proxyReq) => console.log(proxyReq)
 };
 
 function getProxyMiddleware(ssl = {}) {
