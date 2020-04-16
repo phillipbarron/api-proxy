@@ -1,13 +1,14 @@
 
 const fs = require('fs');
 const proxy = require("http-proxy-middleware");
+
 const targetOption = {
   protocol: 'https:',
   host: 'castaway.int.tools.bbc.co.uk',
   port: 443,
-  pfx: fs.readFileSync(process.env.DEV_CERT_P12),
-  passphrase: process.env.CERT_PASSPHRASE,
-  CA: process.env.CA_BUNDLE
+  cert: fs.readFileSync(process.env.DEV_CERT_PEM),
+  key: fs.readFileSync(process.env.DEV_CERT_PEM),
+  ca: fs.readFileSync(process.env.CA_BUNDLE)
 };
 
 const activitiesMap = {
@@ -23,13 +24,13 @@ const getActivityRoute = (req) => {
 };
 
 const proxyOptions = {
-  target: targetOption,
+  target: `https://passport-control.int.tools.bbc.co.uk`,
   changeOrigin: true,
   pathRewrite: {
     "^/_activities/[a-zA-Z]+/": "/",
   },
   router: getActivityRoute,
-  onProxyReq: (proxyReq) => console.log(proxyReq)
+  onProxyReq: (proxyReq) => console.log('meh')
 };
 
 function getProxyMiddleware(ssl = {}) {
