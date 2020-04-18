@@ -10,7 +10,7 @@ const targetOption = {
   ca: fs.readFileSync(process.env.CA_BUNDLE)
 };
 
-const activitiesMap = {
+const activitiesMap = { //the values here should come from config, are code should not know about environments
   passportControl: "passport-control.int.tools.bbc.co.uk",
   imageUpload: "image-upload-activity.int.tools.bbc.co.uk",
   av: "av-activity.int.tools.bbc.co.uk",
