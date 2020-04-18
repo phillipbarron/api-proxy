@@ -18,12 +18,12 @@ const activitiesMap = {
 };
 
 const getActivityRoute = (req) => {
-  const activityKey = req.path ? req.path.split("/")[2] : null;
+  const activityKey = req.path ? req.path.split("/")[2] : null; //todo - make this less crap
   if (activityKey in activitiesMap) return { ...targetOption, ...{ host: activitiesMap[activityKey] } };
 };
 
 const proxyOptions = {
-  target: `https://passport-control.int.tools.bbc.co.uk`,
+  target: `https://passport-control.int.tools.bbc.co.uk`, // what is the point of this in thr presence of a router? do we fall back
   changeOrigin: true,
   pathRewrite: {
     "^/_activities/[a-zA-Z]+/": "/",
