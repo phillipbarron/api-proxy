@@ -10,9 +10,7 @@ const targetOption = {
   ca: fs.readFileSync(process.env.CA_BUNDLE)
 };
 
-const camelToUnderscore = (key) => {
-  return key.replace( /([A-Z])/g, "_$1").toUpperCase();
-}
+const camelToUnderscore = (key) => key.replace( /([A-Z])/g, "_$1").toUpperCase();
 
 const getActivityRoute = (req) => {
   const activityKey = req.path ? camelToUnderscore(req.path.split("/")[2]) : null; //todo - make this less crap
@@ -20,7 +18,7 @@ const getActivityRoute = (req) => {
 };
 
 const proxyOptions = {
-  target: `https://passport-control.int.tools.bbc.co.uk`, // what is the point of this in thr presence of a router? do we fall back
+  target: `https://passport-control.int.tools.bbc.co.uk`, // fall back where router does not return anything
   changeOrigin: true,
   pathRewrite: {
     "^/_activities/[a-zA-Z]+/": "/",
