@@ -10,16 +10,13 @@ const targetOption = {
   ca: fs.readFileSync(process.env.CA_BUNDLE)
 };
 
-const activitiesMap = { //the values here should come from config, are code should not know about environments
-  passportControl: "passport-control.int.tools.bbc.co.uk",
-  imageUpload: "image-upload-activity.int.tools.bbc.co.uk",
-  av: "av-activity.int.tools.bbc.co.uk",
-  hd: 'castaway.int.tools.bbc.co.uk'
-};
+const camelToUnderscore = (key) => {
+  return key.replace( /([A-Z])/g, "_$1").toUpperCase();
+}
 
 const getActivityRoute = (req) => {
-  const activityKey = req.path ? req.path.split("/")[2] : null; //todo - make this less crap
-  if (activityKey in activitiesMap) return { ...targetOption, ...{ host: activitiesMap[activityKey] } };
+  const activityKey = req.path ? camelToUnderscore(req.path.split("/")[2]) : null; //todo - make this less crap
+  if (process.env[activityKey]) return { ...targetOption, ...{ host: process.env[activityKey] } };
 };
 
 const proxyOptions = {

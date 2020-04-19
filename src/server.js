@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const express = require('express')
 const getProxyMiddleware = require('./proxy-middleware').getProxyMiddleware
 const app = express()
