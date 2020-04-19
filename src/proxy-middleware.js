@@ -32,7 +32,7 @@ const proxyOptions = {
   onProxyReq: (proxyReq) => console.log('meh')
 };
 
-function getProxyMiddleware(ssl = {}) {
+function getProxyMiddleware() {
   return proxy(proxyOptions);
 }
 module.exports = {
